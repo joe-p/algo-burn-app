@@ -1,0 +1,21 @@
+{
+  "name": "AlgoBurnApp",
+  "desc": "",
+  "methods": [
+    {
+      "name": "optIntoASA",
+      "args": [
+        {
+          "name": "asa",
+          "type": "asset",
+          "desc": "The ASA to opt in to"
+        }
+      ],
+      "desc": "Opt the contract into an ASA",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    }
+  ]
+}

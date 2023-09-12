@@ -1,0 +1,79 @@
+#pragma version 9
+
+txn ApplicationID
+int 0
+>
+int 6
+*
+txn OnCompletion
++
+switch create_NoOp NOT_IMPLEMENTED NOT_IMPLEMENTED NOT_IMPLEMENTED NOT_IMPLEMENTED NOT_IMPLEMENTED call_NoOp
+
+NOT_IMPLEMENTED:
+	err
+
+abi_route_optIntoASA:
+	// no dupn needed
+	txna ApplicationArgs 1
+	btoi
+	txnas Assets
+	callsub optIntoASA
+	int 1
+	return
+
+optIntoASA:
+	proto 1 0
+
+	// contracts/algo-burn-app.algo.ts:11
+	// assert(!globals.currentApplicationAddress.hasAsset(asa))
+	global CurrentApplicationAddress
+	frame_dig -1 // asa: asset
+	asset_holding_get AssetBalance
+	swap
+	pop
+	!
+	assert
+
+	// contracts/algo-burn-app.algo.ts:12
+	// sendAssetTransfer({
+	itxn_begin
+	int axfer
+	itxn_field TypeEnum
+
+	// contracts/algo-burn-app.algo.ts:13
+	// assetReceiver: globals.currentApplicationAddress
+	global CurrentApplicationAddress
+	itxn_field AssetReceiver
+
+	// contracts/algo-burn-app.algo.ts:14
+	// xferAsset: asa
+	frame_dig -1 // asa: asset
+	itxn_field XferAsset
+
+	// contracts/algo-burn-app.algo.ts:15
+	// assetAmount: 0
+	int 0
+	itxn_field AssetAmount
+
+	// Fee field not set, defaulting to 0
+	int 0
+	itxn_field Fee
+
+	// Submit inner transaction
+	itxn_submit
+	retsub
+
+abi_route_defaultTEALScriptCreate:
+	int 1
+	return
+
+create_NoOp:
+	txn NumAppArgs
+	bz abi_route_defaultTEALScriptCreate
+	err
+
+call_NoOp:
+	method "optIntoASA(asset)void"
+	txna ApplicationArgs 0
+	match abi_route_optIntoASA
+	err

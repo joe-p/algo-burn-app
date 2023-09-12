@@ -1,0 +1,22 @@
+{
+  "pc": {
+    "version": 3,
+    "sources": [
+      "algo-burn-app.algo.ts"
+    ],
+    "names": [],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAQE;;AAAA;;;AAAA;AAAA;AAAA;;;AACU;;;;AAAA;;AAAD;AAAC;AAAA;AACR;AAAA;;;AACE;;AAHO;;AAKP;;AAFe;;;;AADjB;;;AAFF;;;AAAA;;AAAA;AAAA;AACU;;AADV;;;AAAA;AAEE;;;;;;AAFF;;;AAAA;;;;AAEE;AAFF",
+    "file": "AlgoBurnApp.approval.teal",
+    "sourceRoot": ""
+  },
+  "teal": {
+    "version": 3,
+    "sources": [
+      "algo-burn-app.algo.ts"
+    ],
+    "names": [],
+    "mappings": ";;;;;;;;;;;;;;;;AAQE;AAAA;AAAA;AAAA;AAAA;;;AACU;;;;;AAAA;AAAD;AAAC;AAAA;AACR;AAAA;;;;;AACE;AAHO;;;;AAKP;AAFe;;;;;AADjB;;;;;AAFF;;;;AAAA;;;;AAAA;;;AAAA;AACU;;;AADV;AAAA;AAEE;;;AAFF;AAAA;AAEE;AAFF",
+    "file": "AlgoBurnApp.approval.teal",
+    "sourceRoot": ""
+  }
+}

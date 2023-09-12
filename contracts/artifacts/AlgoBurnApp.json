@@ -1,0 +1,61 @@
+{
+  "hints": {
+    "optIntoASA(asset)void": {
+      "call_config": {
+        "no_op": "CALL"
+      }
+    }
+  },
+  "bare_call_config": {
+    "no_op": "CREATE",
+    "opt_in": "NEVER",
+    "close_out": "NEVER",
+    "update_application": "NEVER",
+    "delete_application": "NEVER"
+  },
+  "schema": {
+    "local": {
+      "declared": {},
+      "reserved": {}
+    },
+    "global": {
+      "declared": {},
+      "reserved": {}
+    }
+  },
+  "state": {
+    "global": {
+      "num_byte_slices": 0,
+      "num_uints": 0
+    },
+    "local": {
+      "num_byte_slices": 0,
+      "num_uints": 0
+    }
+  },
+  "source": {
+    "approval": "I3ByYWdtYSB2ZXJzaW9uIDkKCnR4biBBcHBsaWNhdGlvbklECmludCAwCj4KaW50IDYKKgp0eG4gT25Db21wbGV0aW9uCisKc3dpdGNoIGNyZWF0ZV9Ob09wIE5PVF9JTVBMRU1FTlRFRCBOT1RfSU1QTEVNRU5URUQgTk9UX0lNUExFTUVOVEVEIE5PVF9JTVBMRU1FTlRFRCBOT1RfSU1QTEVNRU5URUQgY2FsbF9Ob09wCgpOT1RfSU1QTEVNRU5URUQ6CgllcnIKCmFiaV9yb3V0ZV9vcHRJbnRvQVNBOgoJLy8gbm8gZHVwbiBuZWVkZWQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCXR4bmFzIEFzc2V0cwoJY2FsbHN1YiBvcHRJbnRvQVNBCglpbnQgMQoJcmV0dXJuCgpvcHRJbnRvQVNBOgoJcHJvdG8gMSAwCgoJLy8gY29udHJhY3RzL2FsZ28tYnVybi1hcHAuYWxnby50czoxMQoJLy8gYXNzZXJ0KCFnbG9iYWxzLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MuaGFzQXNzZXQoYXNhKSkKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglmcmFtZV9kaWcgLTEgLy8gYXNhOiBhc3NldAoJYXNzZXRfaG9sZGluZ19nZXQgQXNzZXRCYWxhbmNlCglzd2FwCglwb3AKCSEKCWFzc2VydAoKCS8vIGNvbnRyYWN0cy9hbGdvLWJ1cm4tYXBwLmFsZ28udHM6MTIKCS8vIHNlbmRBc3NldFRyYW5zZmVyKHsKCWl0eG5fYmVnaW4KCWludCBheGZlcgoJaXR4bl9maWVsZCBUeXBlRW51bQoKCS8vIGNvbnRyYWN0cy9hbGdvLWJ1cm4tYXBwLmFsZ28udHM6MTMKCS8vIGFzc2V0UmVjZWl2ZXI6IGdsb2JhbHMuY3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwoJZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWl0eG5fZmllbGQgQXNzZXRSZWNlaXZlcgoKCS8vIGNvbnRyYWN0cy9hbGdvLWJ1cm4tYXBwLmFsZ28udHM6MTQKCS8vIHhmZXJBc3NldDogYXNhCglmcmFtZV9kaWcgLTEgLy8gYXNhOiBhc3NldAoJaXR4bl9maWVsZCBYZmVyQXNzZXQKCgkvLyBjb250cmFjdHMvYWxnby1idXJuLWFwcC5hbGdvLnRzOjE1CgkvLyBhc3NldEFtb3VudDogMAoJaW50IDAKCWl0eG5fZmllbGQgQXNzZXRBbW91bnQKCgkvLyBGZWUgZmllbGQgbm90IHNldCwgZGVmYXVsdGluZyB0byAwCglpbnQgMAoJaXR4bl9maWVsZCBGZWUKCgkvLyBTdWJtaXQgaW5uZXIgdHJhbnNhY3Rpb24KCWl0eG5fc3VibWl0CglyZXRzdWIKCmFiaV9yb3V0ZV9kZWZhdWx0VEVBTFNjcmlwdENyZWF0ZToKCWludCAxCglyZXR1cm4KCmNyZWF0ZV9Ob09wOgoJdHhuIE51bUFwcEFyZ3MKCWJ6IGFiaV9yb3V0ZV9kZWZhdWx0VEVBTFNjcmlwdENyZWF0ZQoJZXJyCgpjYWxsX05vT3A6CgltZXRob2QgIm9wdEludG9BU0EoYXNzZXQpdm9pZCIKCXR4bmEgQXBwbGljYXRpb25BcmdzIDAKCW1hdGNoIGFiaV9yb3V0ZV9vcHRJbnRvQVNBCgllcnI=",
+    "clear": "I3ByYWdtYSB2ZXJzaW9uIDkKaW50IDE="
+  },
+  "contract": {
+    "name": "AlgoBurnApp",
+    "desc": "",
+    "methods": [
+      {
+        "name": "optIntoASA",
+        "args": [
+          {
+            "name": "asa",
+            "type": "asset",
+            "desc": "The ASA to opt in to"
+          }
+        ],
+        "desc": "Opt the contract into an ASA",
+        "returns": {
+          "type": "void",
+          "desc": ""
+        }
+      }
+    ]
+  }
+}
