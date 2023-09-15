@@ -10,6 +10,7 @@ class ASABurnApp extends Contract {
    */
   optIntoASA(mbrPayment: PayTxn, asa: Asset): void {
     assert(!globals.currentApplicationAddress.hasAsset(asa));
+    assert(asa.clawback === globals.zeroAddress);
 
     const preMBR = globals.currentApplicationAddress.minBalance;
 

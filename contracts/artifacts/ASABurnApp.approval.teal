@@ -62,14 +62,23 @@ optIntoASA:
 	!
 	assert
 
-	// contracts/asa-burn-app.algo.ts:14
+	// contracts/asa-burn-app.algo.ts:13
+	// assert(asa.clawback === globals.zeroAddress)
+	frame_dig -2 // asa: asset
+	asset_params_get AssetClawback
+	assert
+	global ZeroAddress
+	==
+	assert
+
+	// contracts/asa-burn-app.algo.ts:15
 	// preMBR = globals.currentApplicationAddress.minBalance
 	global CurrentApplicationAddress
 	acct_params_get AcctMinBalance
 	assert
 	frame_bury -3 // preMBR: uint64
 
-	// contracts/asa-burn-app.algo.ts:16
+	// contracts/asa-burn-app.algo.ts:17
 	// sendAssetTransfer({
 	//       assetReceiver: globals.currentApplicationAddress,
 	//       xferAsset: asa,
@@ -79,17 +88,17 @@ optIntoASA:
 	int axfer
 	itxn_field TypeEnum
 
-	// contracts/asa-burn-app.algo.ts:17
+	// contracts/asa-burn-app.algo.ts:18
 	// assetReceiver: globals.currentApplicationAddress
 	global CurrentApplicationAddress
 	itxn_field AssetReceiver
 
-	// contracts/asa-burn-app.algo.ts:18
+	// contracts/asa-burn-app.algo.ts:19
 	// xferAsset: asa
 	frame_dig -2 // asa: asset
 	itxn_field XferAsset
 
-	// contracts/asa-burn-app.algo.ts:19
+	// contracts/asa-burn-app.algo.ts:20
 	// assetAmount: 0
 	int 0
 	itxn_field AssetAmount
@@ -101,7 +110,7 @@ optIntoASA:
 	// Submit inner transaction
 	itxn_submit
 
-	// contracts/asa-burn-app.algo.ts:22
+	// contracts/asa-burn-app.algo.ts:23
 	// verifyTxn(mbrPayment, {
 	//       receiver: globals.currentApplicationAddress,
 	//       amount: { greaterThanEqualTo: globals.currentApplicationAddress.minBalance - preMBR },
