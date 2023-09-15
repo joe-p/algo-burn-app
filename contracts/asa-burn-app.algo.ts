@@ -3,7 +3,9 @@ import { Contract } from '@algorandfoundation/tealscript';
 // eslint-disable-next-line no-unused-vars
 class ASABurnApp extends Contract {
   /**
-   * Opt the contract into an ASA
+   * Sends an inner transaction to opt the contract account into an ASA. The fee for
+   * the inner transaction must be covered by the sender. Will fail if the contract
+   * is already opted in to the asset or if the asset has a clawback address set.
    *
    * @param mbrPayment The payment that covers the opt-in MBR for the contract
    * @param asa The ASA to opt in to

@@ -22,7 +22,9 @@ NOT_IMPLEMENTED:
 
 // optIntoASA(asset,pay)void
 //
-// Opt the contract into an ASA
+// Sends an inner transaction to opt the contract account into an ASA. The fee for
+// the inner transaction must be covered by the sender. Will fail if the contract
+// is already opted in to the asset or if the asset has a clawback address set.
 // 
 // @param mbrPayment The payment that covers the opt-in MBR for the contract
 // @param asa The ASA to opt in to
@@ -52,7 +54,7 @@ abi_route_optIntoASA:
 optIntoASA:
 	proto 3 0
 
-	// contracts/asa-burn-app.algo.ts:12
+	// contracts/asa-burn-app.algo.ts:14
 	// assert(!globals.currentApplicationAddress.hasAsset(asa))
 	global CurrentApplicationAddress
 	frame_dig -2 // asa: asset
@@ -62,7 +64,7 @@ optIntoASA:
 	!
 	assert
 
-	// contracts/asa-burn-app.algo.ts:13
+	// contracts/asa-burn-app.algo.ts:15
 	// assert(asa.clawback === globals.zeroAddress)
 	frame_dig -2 // asa: asset
 	asset_params_get AssetClawback
@@ -71,14 +73,14 @@ optIntoASA:
 	==
 	assert
 
-	// contracts/asa-burn-app.algo.ts:15
+	// contracts/asa-burn-app.algo.ts:17
 	// preMBR = globals.currentApplicationAddress.minBalance
 	global CurrentApplicationAddress
 	acct_params_get AcctMinBalance
 	assert
 	frame_bury -3 // preMBR: uint64
 
-	// contracts/asa-burn-app.algo.ts:17
+	// contracts/asa-burn-app.algo.ts:19
 	// sendAssetTransfer({
 	//       assetReceiver: globals.currentApplicationAddress,
 	//       xferAsset: asa,
@@ -88,17 +90,17 @@ optIntoASA:
 	int axfer
 	itxn_field TypeEnum
 
-	// contracts/asa-burn-app.algo.ts:18
+	// contracts/asa-burn-app.algo.ts:20
 	// assetReceiver: globals.currentApplicationAddress
 	global CurrentApplicationAddress
 	itxn_field AssetReceiver
 
-	// contracts/asa-burn-app.algo.ts:19
+	// contracts/asa-burn-app.algo.ts:21
 	// xferAsset: asa
 	frame_dig -2 // asa: asset
 	itxn_field XferAsset
 
-	// contracts/asa-burn-app.algo.ts:20
+	// contracts/asa-burn-app.algo.ts:22
 	// assetAmount: 0
 	int 0
 	itxn_field AssetAmount
@@ -110,7 +112,7 @@ optIntoASA:
 	// Submit inner transaction
 	itxn_submit
 
-	// contracts/asa-burn-app.algo.ts:23
+	// contracts/asa-burn-app.algo.ts:25
 	// verifyTxn(mbrPayment, {
 	//       receiver: globals.currentApplicationAddress,
 	//       amount: { greaterThanEqualTo: globals.currentApplicationAddress.minBalance - preMBR },

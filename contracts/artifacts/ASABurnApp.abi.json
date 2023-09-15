@@ -16,7 +16,7 @@
           "desc": "The ASA to opt in to"
         }
       ],
-      "desc": "Opt the contract into an ASA",
+      "desc": "Sends an inner transaction to opt the contract account into an ASA. The fee forthe inner transaction must be covered by the sender. Will fail if the contractis already opted in to the asset or if the asset has a clawback address set.",
       "returns": {
         "type": "void",
         "desc": ""
