@@ -1,0 +1,66 @@
+{
+  "hints": {
+    "optIntoASA(pay,asset)void": {
+      "call_config": {
+        "no_op": "CALL"
+      }
+    }
+  },
+  "bare_call_config": {
+    "no_op": "CREATE",
+    "opt_in": "NEVER",
+    "close_out": "NEVER",
+    "update_application": "NEVER",
+    "delete_application": "NEVER"
+  },
+  "schema": {
+    "local": {
+      "declared": {},
+      "reserved": {}
+    },
+    "global": {
+      "declared": {},
+      "reserved": {}
+    }
+  },
+  "state": {
+    "global": {
+      "num_byte_slices": 0,
+      "num_uints": 0
+    },
+    "local": {
+      "num_byte_slices": 0,
+      "num_uints": 0
+    }
+  },
+  "source": {
+    "approval": "I3ByYWdtYSB2ZXJzaW9uIDkKCi8vIFRoaXMgVEVBTCB3YXMgZ2VuZXJhdGVkIGJ5IFRFQUxTY3JpcHQgdjAuNDIuMAovLyBodHRwczovL2dpdGh1Yi5jb20vYWxnb3JhbmQtZGV2cmVsL1RFQUxTY3JpcHQKCi8vIFRoZSBmb2xsb3dpbmcgdGVuIGxpbmVzIG9mIFRFQUwgaGFuZGxlIGluaXRpYWwgcHJvZ3JhbSBmbG93Ci8vIFRoaXMgcGF0dGVybiBpcyB1c2VkIHRvIG1ha2UgaXQgZWFzeSBmb3IgYW55b25lIHRvIHBhcnNlIHRoZSBzdGFydCBvZiB0aGUgcHJvZ3JhbSBhbmQgZGV0ZXJtaW5lIGlmIGEgc3BlY2lmaWMgYWN0aW9uIGlzIGFsbG93ZWQKLy8gSGVyZSwgYWN0aW9uIHJlZmVycyB0byB0aGUgT25Db21wbGV0ZSBpbiBjb21iaW5hdGlvbiB3aXRoIHdoZXRoZXIgdGhlIGFwcCBpcyBiZWluZyBjcmVhdGVkIG9yIGNhbGxlZAovLyBFdmVyeSBwb3NzaWJsZSBhY3Rpb24gZm9yIHRoaXMgY29udHJhY3QgaXMgcmVwcmVzZW50ZWQgaW4gdGhlIHN3aXRjaCBzdGF0ZW1lbnQKLy8gSWYgdGhlIGFjdGlvbiBpcyBub3QgaW1wbG1lbnRlZCBpbiB0aGUgY29udHJhY3QsIGl0cyByZXBzZWN0aXZlIGJyYW5jaCB3aWxsIGJlICJOT1RfSU1QTE1FTlRFRCIgd2hpY2gganVzdCBjb250YWlucyAiZXJyIgp0eG4gQXBwbGljYXRpb25JRAppbnQgMAo+CmludCA2CioKdHhuIE9uQ29tcGxldGlvbgorCnN3aXRjaCBjcmVhdGVfTm9PcCBOT1RfSU1QTEVNRU5URUQgTk9UX0lNUExFTUVOVEVEIE5PVF9JTVBMRU1FTlRFRCBOT1RfSU1QTEVNRU5URUQgTk9UX0lNUExFTUVOVEVEIGNhbGxfTm9PcAoKTk9UX0lNUExFTUVOVEVEOgoJZXJyCgovLyBvcHRJbnRvQVNBKGFzc2V0LHBheSl2b2lkCi8vCi8vIE9wdCB0aGUgY29udHJhY3QgaW50byBhbiBBU0EKLy8gCi8vIEBwYXJhbSBtYnJQYXltZW50IFRoZSBwYXltZW50IHRoYXQgY292ZXJzIHRoZSBvcHQtaW4gTUJSIGZvciB0aGUgY29udHJhY3QKLy8gQHBhcmFtIGFzYSBUaGUgQVNBIHRvIG9wdCBpbiB0bwphYmlfcm91dGVfb3B0SW50b0FTQToKCWJ5dGUgMHggLy8gcHVzaCBlbXB0eSBieXRlcyB0byBmaWxsIHRoZSBzdGFjayBmcmFtZSBmb3IgdGhpcyBzdWJyb3V0aW5lJ3MgbG9jYWwgdmFyaWFibGVzCgoJLy8gYXNhOiBhc3NldAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoJdHhuYXMgQXNzZXRzCgoJLy8gbWJyUGF5bWVudDogcGF5Cgl0eG4gR3JvdXBJbmRleAoJaW50IDEKCS0KCWR1cAoJZ3R4bnMgVHlwZUVudW0KCWludCBwYXkKCT09Cglhc3NlcnQKCgkvLyBleGVjdXRlIG9wdEludG9BU0EoYXNzZXQscGF5KXZvaWQKCWNhbGxzdWIgb3B0SW50b0FTQQoJaW50IDEKCXJldHVybgoKb3B0SW50b0FTQToKCXByb3RvIDMgMAoKCS8vIGNvbnRyYWN0cy9hc2EtYnVybi1hcHAuYWxnby50czoxMgoJLy8gYXNzZXJ0KCFnbG9iYWxzLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MuaGFzQXNzZXQoYXNhKSkKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglmcmFtZV9kaWcgLTIgLy8gYXNhOiBhc3NldAoJYXNzZXRfaG9sZGluZ19nZXQgQXNzZXRCYWxhbmNlCglzd2FwCglwb3AKCSEKCWFzc2VydAoKCS8vIGNvbnRyYWN0cy9hc2EtYnVybi1hcHAuYWxnby50czoxNAoJLy8gcHJlTUJSID0gZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLm1pbkJhbGFuY2UKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglhY2N0X3BhcmFtc19nZXQgQWNjdE1pbkJhbGFuY2UKCWFzc2VydAoJZnJhbWVfYnVyeSAtMyAvLyBwcmVNQlI6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9hc2EtYnVybi1hcHAuYWxnby50czoxNgoJLy8gc2VuZEFzc2V0VHJhbnNmZXIoewoJLy8gICAgICAgYXNzZXRSZWNlaXZlcjogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLAoJLy8gICAgICAgeGZlckFzc2V0OiBhc2EsCgkvLyAgICAgICBhc3NldEFtb3VudDogMCwKCS8vICAgICB9KQoJaXR4bl9iZWdpbgoJaW50IGF4ZmVyCglpdHhuX2ZpZWxkIFR5cGVFbnVtCgoJLy8gY29udHJhY3RzL2FzYS1idXJuLWFwcC5hbGdvLnRzOjE3CgkvLyBhc3NldFJlY2VpdmVyOiBnbG9iYWxzLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglpdHhuX2ZpZWxkIEFzc2V0UmVjZWl2ZXIKCgkvLyBjb250cmFjdHMvYXNhLWJ1cm4tYXBwLmFsZ28udHM6MTgKCS8vIHhmZXJBc3NldDogYXNhCglmcmFtZV9kaWcgLTIgLy8gYXNhOiBhc3NldAoJaXR4bl9maWVsZCBYZmVyQXNzZXQKCgkvLyBjb250cmFjdHMvYXNhLWJ1cm4tYXBwLmFsZ28udHM6MTkKCS8vIGFzc2V0QW1vdW50OiAwCglpbnQgMAoJaXR4bl9maWVsZCBBc3NldEFtb3VudAoKCS8vIEZlZSBmaWVsZCBub3Qgc2V0LCBkZWZhdWx0aW5nIHRvIDAKCWludCAwCglpdHhuX2ZpZWxkIEZlZQoKCS8vIFN1Ym1pdCBpbm5lciB0cmFuc2FjdGlvbgoJaXR4bl9zdWJtaXQKCgkvLyBjb250cmFjdHMvYXNhLWJ1cm4tYXBwLmFsZ28udHM6MjIKCS8vIHZlcmlmeVR4bihtYnJQYXltZW50LCB7CgkvLyAgICAgICByZWNlaXZlcjogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLAoJLy8gICAgICAgYW1vdW50OiB7IGdyZWF0ZXJUaGFuRXF1YWxUbzogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLm1pbkJhbGFuY2UgLSBwcmVNQlIgfSwKCS8vICAgICB9KQoJLy8gdmVyaWZ5IHJlY2VpdmVyCglmcmFtZV9kaWcgLTEgLy8gbWJyUGF5bWVudDogcGF5CglndHhucyBSZWNlaXZlcgoJZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCT09Cglhc3NlcnQKCgkvLyB2ZXJpZnkgYW1vdW50CglmcmFtZV9kaWcgLTEgLy8gbWJyUGF5bWVudDogcGF5CglndHhucyBBbW91bnQKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglhY2N0X3BhcmFtc19nZXQgQWNjdE1pbkJhbGFuY2UKCWFzc2VydAoJZnJhbWVfZGlnIC0zIC8vIHByZU1CUjogdWludDY0CgktCgk+PQoJYXNzZXJ0CglyZXRzdWIKCmFiaV9yb3V0ZV9kZWZhdWx0VEVBTFNjcmlwdENyZWF0ZToKCWludCAxCglyZXR1cm4KCmNyZWF0ZV9Ob09wOgoJdHhuIE51bUFwcEFyZ3MKCWJ6IGFiaV9yb3V0ZV9kZWZhdWx0VEVBTFNjcmlwdENyZWF0ZQoJZXJyCgpjYWxsX05vT3A6CgltZXRob2QgIm9wdEludG9BU0EocGF5LGFzc2V0KXZvaWQiCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAwCgltYXRjaCBhYmlfcm91dGVfb3B0SW50b0FTQQoJZXJy",
+    "clear": "I3ByYWdtYSB2ZXJzaW9uIDkKaW50IDE="
+  },
+  "contract": {
+    "name": "ASABurnApp",
+    "desc": "",
+    "methods": [
+      {
+        "name": "optIntoASA",
+        "args": [
+          {
+            "name": "mbrPayment",
+            "type": "pay",
+            "desc": "The payment that covers the opt-in MBR for the contract"
+          },
+          {
+            "name": "asa",
+            "type": "asset",
+            "desc": "The ASA to opt in to"
+          }
+        ],
+        "desc": "Opt the contract into an ASA",
+        "returns": {
+          "type": "void",
+          "desc": ""
+        }
+      }
+    ]
+  }
+}

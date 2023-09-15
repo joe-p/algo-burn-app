@@ -26,7 +26,7 @@ import { SendTransactionResult, TransactionToSign, SendTransactionFrom } from '@
 import { Algodv2, OnApplicationComplete, Transaction, TransactionWithSigner, AtomicTransactionComposer } from 'algosdk'
 export const APP_SPEC: AppSpec = {
   "hints": {
-    "optIntoASA(asset)void": {
+    "optIntoASA(pay,asset)void": {
       "call_config": {
         "no_op": "CALL"
       }
@@ -60,16 +60,21 @@ export const APP_SPEC: AppSpec = {
     }
   },
   "source": {
-    "approval": "I3ByYWdtYSB2ZXJzaW9uIDkKCi8vIFRoaXMgVEVBTCB3YXMgZ2VuZXJhdGVkIGJ5IFRFQUxTY3JpcHQgdjAuNDIuMAovLyBodHRwczovL2dpdGh1Yi5jb20vYWxnb3JhbmQtZGV2cmVsL1RFQUxTY3JpcHQKCi8vIFRoZSBmb2xsb3dpbmcgdGVuIGxpbmVzIG9mIFRFQUwgaGFuZGxlIGluaXRpYWwgcHJvZ3JhbSBmbG93Ci8vIFRoaXMgcGF0dGVybiBpcyB1c2VkIHRvIG1ha2UgaXQgZWFzeSBmb3IgYW55b25lIHRvIHBhcnNlIHRoZSBzdGFydCBvZiB0aGUgcHJvZ3JhbSBhbmQgZGV0ZXJtaW5lIGlmIGEgc3BlY2lmaWMgYWN0aW9uIGlzIGFsbG93ZWQKLy8gSGVyZSwgYWN0aW9uIHJlZmVycyB0byB0aGUgT25Db21wbGV0ZSBpbiBjb21iaW5hdGlvbiB3aXRoIHdoZXRoZXIgdGhlIGFwcCBpcyBiZWluZyBjcmVhdGVkIG9yIGNhbGxlZAovLyBFdmVyeSBwb3NzaWJsZSBhY3Rpb24gZm9yIHRoaXMgY29udHJhY3QgaXMgcmVwcmVzZW50ZWQgaW4gdGhlIHN3aXRjaCBzdGF0ZW1lbnQKLy8gSWYgdGhlIGFjdGlvbiBpcyBub3QgaW1wbG1lbnRlZCBpbiB0aGUgY29udHJhY3QsIGl0cyByZXBzZWN0aXZlIGJyYW5jaCB3aWxsIGJlICJOT1RfSU1QTE1FTlRFRCIgd2hpY2gganVzdCBjb250YWlucyAiZXJyIgp0eG4gQXBwbGljYXRpb25JRAppbnQgMAo+CmludCA2CioKdHhuIE9uQ29tcGxldGlvbgorCnN3aXRjaCBjcmVhdGVfTm9PcCBOT1RfSU1QTEVNRU5URUQgTk9UX0lNUExFTUVOVEVEIE5PVF9JTVBMRU1FTlRFRCBOT1RfSU1QTEVNRU5URUQgTk9UX0lNUExFTUVOVEVEIGNhbGxfTm9PcAoKTk9UX0lNUExFTUVOVEVEOgoJZXJyCgovLyBvcHRJbnRvQVNBKGFzc2V0KXZvaWQKLy8KLy8gT3B0IHRoZSBjb250cmFjdCBpbnRvIGFuIEFTQQovLyAKLy8gQHBhcmFtIGFzYSBUaGUgQVNBIHRvIG9wdCBpbiB0bwphYmlfcm91dGVfb3B0SW50b0FTQToKCS8vIGFzYTogYXNzZXQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCXR4bmFzIEFzc2V0cwoKCS8vIGV4ZWN1dGUgb3B0SW50b0FTQShhc3NldCl2b2lkCgljYWxsc3ViIG9wdEludG9BU0EKCWludCAxCglyZXR1cm4KCm9wdEludG9BU0E6Cglwcm90byAxIDAKCgkvLyBjb250cmFjdHMvYWxnby1idXJuLWFwcC5hbGdvLnRzOjExCgkvLyBhc3NlcnQoIWdsb2JhbHMuY3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcy5oYXNBc3NldChhc2EpKQoJZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWZyYW1lX2RpZyAtMSAvLyBhc2E6IGFzc2V0Cglhc3NldF9ob2xkaW5nX2dldCBBc3NldEJhbGFuY2UKCXN3YXAKCXBvcAoJIQoJYXNzZXJ0CgoJLy8gY29udHJhY3RzL2FsZ28tYnVybi1hcHAuYWxnby50czoxMgoJLy8gc2VuZEFzc2V0VHJhbnNmZXIoewoJLy8gICAgICAgYXNzZXRSZWNlaXZlcjogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLAoJLy8gICAgICAgeGZlckFzc2V0OiBhc2EsCgkvLyAgICAgICBhc3NldEFtb3VudDogMCwKCS8vICAgICB9KQoJaXR4bl9iZWdpbgoJaW50IGF4ZmVyCglpdHhuX2ZpZWxkIFR5cGVFbnVtCgoJLy8gY29udHJhY3RzL2FsZ28tYnVybi1hcHAuYWxnby50czoxMwoJLy8gYXNzZXRSZWNlaXZlcjogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglnbG9iYWwgQ3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwoJaXR4bl9maWVsZCBBc3NldFJlY2VpdmVyCgoJLy8gY29udHJhY3RzL2FsZ28tYnVybi1hcHAuYWxnby50czoxNAoJLy8geGZlckFzc2V0OiBhc2EKCWZyYW1lX2RpZyAtMSAvLyBhc2E6IGFzc2V0CglpdHhuX2ZpZWxkIFhmZXJBc3NldAoKCS8vIGNvbnRyYWN0cy9hbGdvLWJ1cm4tYXBwLmFsZ28udHM6MTUKCS8vIGFzc2V0QW1vdW50OiAwCglpbnQgMAoJaXR4bl9maWVsZCBBc3NldEFtb3VudAoKCS8vIEZlZSBmaWVsZCBub3Qgc2V0LCBkZWZhdWx0aW5nIHRvIDAKCWludCAwCglpdHhuX2ZpZWxkIEZlZQoKCS8vIFN1Ym1pdCBpbm5lciB0cmFuc2FjdGlvbgoJaXR4bl9zdWJtaXQKCXJldHN1YgoKYWJpX3JvdXRlX2RlZmF1bHRURUFMU2NyaXB0Q3JlYXRlOgoJaW50IDEKCXJldHVybgoKY3JlYXRlX05vT3A6Cgl0eG4gTnVtQXBwQXJncwoJYnogYWJpX3JvdXRlX2RlZmF1bHRURUFMU2NyaXB0Q3JlYXRlCgllcnIKCmNhbGxfTm9PcDoKCW1ldGhvZCAib3B0SW50b0FTQShhc3NldCl2b2lkIgoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMAoJbWF0Y2ggYWJpX3JvdXRlX29wdEludG9BU0EKCWVycg==",
+    "approval": "I3ByYWdtYSB2ZXJzaW9uIDkKCi8vIFRoaXMgVEVBTCB3YXMgZ2VuZXJhdGVkIGJ5IFRFQUxTY3JpcHQgdjAuNDIuMAovLyBodHRwczovL2dpdGh1Yi5jb20vYWxnb3JhbmQtZGV2cmVsL1RFQUxTY3JpcHQKCi8vIFRoZSBmb2xsb3dpbmcgdGVuIGxpbmVzIG9mIFRFQUwgaGFuZGxlIGluaXRpYWwgcHJvZ3JhbSBmbG93Ci8vIFRoaXMgcGF0dGVybiBpcyB1c2VkIHRvIG1ha2UgaXQgZWFzeSBmb3IgYW55b25lIHRvIHBhcnNlIHRoZSBzdGFydCBvZiB0aGUgcHJvZ3JhbSBhbmQgZGV0ZXJtaW5lIGlmIGEgc3BlY2lmaWMgYWN0aW9uIGlzIGFsbG93ZWQKLy8gSGVyZSwgYWN0aW9uIHJlZmVycyB0byB0aGUgT25Db21wbGV0ZSBpbiBjb21iaW5hdGlvbiB3aXRoIHdoZXRoZXIgdGhlIGFwcCBpcyBiZWluZyBjcmVhdGVkIG9yIGNhbGxlZAovLyBFdmVyeSBwb3NzaWJsZSBhY3Rpb24gZm9yIHRoaXMgY29udHJhY3QgaXMgcmVwcmVzZW50ZWQgaW4gdGhlIHN3aXRjaCBzdGF0ZW1lbnQKLy8gSWYgdGhlIGFjdGlvbiBpcyBub3QgaW1wbG1lbnRlZCBpbiB0aGUgY29udHJhY3QsIGl0cyByZXBzZWN0aXZlIGJyYW5jaCB3aWxsIGJlICJOT1RfSU1QTE1FTlRFRCIgd2hpY2gganVzdCBjb250YWlucyAiZXJyIgp0eG4gQXBwbGljYXRpb25JRAppbnQgMAo+CmludCA2CioKdHhuIE9uQ29tcGxldGlvbgorCnN3aXRjaCBjcmVhdGVfTm9PcCBOT1RfSU1QTEVNRU5URUQgTk9UX0lNUExFTUVOVEVEIE5PVF9JTVBMRU1FTlRFRCBOT1RfSU1QTEVNRU5URUQgTk9UX0lNUExFTUVOVEVEIGNhbGxfTm9PcAoKTk9UX0lNUExFTUVOVEVEOgoJZXJyCgovLyBvcHRJbnRvQVNBKGFzc2V0LHBheSl2b2lkCi8vCi8vIE9wdCB0aGUgY29udHJhY3QgaW50byBhbiBBU0EKLy8gCi8vIEBwYXJhbSBtYnJQYXltZW50IFRoZSBwYXltZW50IHRoYXQgY292ZXJzIHRoZSBvcHQtaW4gTUJSIGZvciB0aGUgY29udHJhY3QKLy8gQHBhcmFtIGFzYSBUaGUgQVNBIHRvIG9wdCBpbiB0bwphYmlfcm91dGVfb3B0SW50b0FTQToKCWJ5dGUgMHggLy8gcHVzaCBlbXB0eSBieXRlcyB0byBmaWxsIHRoZSBzdGFjayBmcmFtZSBmb3IgdGhpcyBzdWJyb3V0aW5lJ3MgbG9jYWwgdmFyaWFibGVzCgoJLy8gYXNhOiBhc3NldAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoJdHhuYXMgQXNzZXRzCgoJLy8gbWJyUGF5bWVudDogcGF5Cgl0eG4gR3JvdXBJbmRleAoJaW50IDEKCS0KCWR1cAoJZ3R4bnMgVHlwZUVudW0KCWludCBwYXkKCT09Cglhc3NlcnQKCgkvLyBleGVjdXRlIG9wdEludG9BU0EoYXNzZXQscGF5KXZvaWQKCWNhbGxzdWIgb3B0SW50b0FTQQoJaW50IDEKCXJldHVybgoKb3B0SW50b0FTQToKCXByb3RvIDMgMAoKCS8vIGNvbnRyYWN0cy9hc2EtYnVybi1hcHAuYWxnby50czoxMgoJLy8gYXNzZXJ0KCFnbG9iYWxzLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MuaGFzQXNzZXQoYXNhKSkKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglmcmFtZV9kaWcgLTIgLy8gYXNhOiBhc3NldAoJYXNzZXRfaG9sZGluZ19nZXQgQXNzZXRCYWxhbmNlCglzd2FwCglwb3AKCSEKCWFzc2VydAoKCS8vIGNvbnRyYWN0cy9hc2EtYnVybi1hcHAuYWxnby50czoxNAoJLy8gcHJlTUJSID0gZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLm1pbkJhbGFuY2UKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglhY2N0X3BhcmFtc19nZXQgQWNjdE1pbkJhbGFuY2UKCWFzc2VydAoJZnJhbWVfYnVyeSAtMyAvLyBwcmVNQlI6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9hc2EtYnVybi1hcHAuYWxnby50czoxNgoJLy8gc2VuZEFzc2V0VHJhbnNmZXIoewoJLy8gICAgICAgYXNzZXRSZWNlaXZlcjogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLAoJLy8gICAgICAgeGZlckFzc2V0OiBhc2EsCgkvLyAgICAgICBhc3NldEFtb3VudDogMCwKCS8vICAgICB9KQoJaXR4bl9iZWdpbgoJaW50IGF4ZmVyCglpdHhuX2ZpZWxkIFR5cGVFbnVtCgoJLy8gY29udHJhY3RzL2FzYS1idXJuLWFwcC5hbGdvLnRzOjE3CgkvLyBhc3NldFJlY2VpdmVyOiBnbG9iYWxzLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglpdHhuX2ZpZWxkIEFzc2V0UmVjZWl2ZXIKCgkvLyBjb250cmFjdHMvYXNhLWJ1cm4tYXBwLmFsZ28udHM6MTgKCS8vIHhmZXJBc3NldDogYXNhCglmcmFtZV9kaWcgLTIgLy8gYXNhOiBhc3NldAoJaXR4bl9maWVsZCBYZmVyQXNzZXQKCgkvLyBjb250cmFjdHMvYXNhLWJ1cm4tYXBwLmFsZ28udHM6MTkKCS8vIGFzc2V0QW1vdW50OiAwCglpbnQgMAoJaXR4bl9maWVsZCBBc3NldEFtb3VudAoKCS8vIEZlZSBmaWVsZCBub3Qgc2V0LCBkZWZhdWx0aW5nIHRvIDAKCWludCAwCglpdHhuX2ZpZWxkIEZlZQoKCS8vIFN1Ym1pdCBpbm5lciB0cmFuc2FjdGlvbgoJaXR4bl9zdWJtaXQKCgkvLyBjb250cmFjdHMvYXNhLWJ1cm4tYXBwLmFsZ28udHM6MjIKCS8vIHZlcmlmeVR4bihtYnJQYXltZW50LCB7CgkvLyAgICAgICByZWNlaXZlcjogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLAoJLy8gICAgICAgYW1vdW50OiB7IGdyZWF0ZXJUaGFuRXF1YWxUbzogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLm1pbkJhbGFuY2UgLSBwcmVNQlIgfSwKCS8vICAgICB9KQoJLy8gdmVyaWZ5IHJlY2VpdmVyCglmcmFtZV9kaWcgLTEgLy8gbWJyUGF5bWVudDogcGF5CglndHhucyBSZWNlaXZlcgoJZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCT09Cglhc3NlcnQKCgkvLyB2ZXJpZnkgYW1vdW50CglmcmFtZV9kaWcgLTEgLy8gbWJyUGF5bWVudDogcGF5CglndHhucyBBbW91bnQKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglhY2N0X3BhcmFtc19nZXQgQWNjdE1pbkJhbGFuY2UKCWFzc2VydAoJZnJhbWVfZGlnIC0zIC8vIHByZU1CUjogdWludDY0CgktCgk+PQoJYXNzZXJ0CglyZXRzdWIKCmFiaV9yb3V0ZV9kZWZhdWx0VEVBTFNjcmlwdENyZWF0ZToKCWludCAxCglyZXR1cm4KCmNyZWF0ZV9Ob09wOgoJdHhuIE51bUFwcEFyZ3MKCWJ6IGFiaV9yb3V0ZV9kZWZhdWx0VEVBTFNjcmlwdENyZWF0ZQoJZXJyCgpjYWxsX05vT3A6CgltZXRob2QgIm9wdEludG9BU0EocGF5LGFzc2V0KXZvaWQiCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAwCgltYXRjaCBhYmlfcm91dGVfb3B0SW50b0FTQQoJZXJy",
     "clear": "I3ByYWdtYSB2ZXJzaW9uIDkKaW50IDE="
   },
   "contract": {
-    "name": "AlgoBurnApp",
+    "name": "ASABurnApp",
     "desc": "",
     "methods": [
       {
         "name": "optIntoASA",
         "args": [
+          {
+            "name": "mbrPayment",
+            "type": "pay",
+            "desc": "The payment that covers the opt-in MBR for the contract"
+          },
           {
             "name": "asa",
             "type": "asset",
@@ -134,32 +139,36 @@ export type BinaryState = {
 }
 
 /**
- * Defines the types of available calls and state of the AlgoBurnApp smart contract.
+ * Defines the types of available calls and state of the AsaBurnApp smart contract.
  */
-export type AlgoBurnApp = {
+export type AsaBurnApp = {
   /**
    * Maps method signatures / names to their argument and return types.
    */
   methods:
-    & Record<'optIntoASA(asset)void' | 'optIntoASA', {
+    & Record<'optIntoASA(pay,asset)void' | 'optIntoASA', {
       argsObj: {
+        /**
+         * The payment that covers the opt-in MBR for the contract
+         */
+        mbrPayment: TransactionToSign | Transaction | Promise<SendTransactionResult>
         /**
          * The ASA to opt in to
          */
         asa: number | bigint
       }
-      argsTuple: [asa: number | bigint]
+      argsTuple: [mbrPayment: TransactionToSign | Transaction | Promise<SendTransactionResult>, asa: number | bigint]
       returns: void
     }>
 }
 /**
  * Defines the possible abi call signatures
  */
-export type AlgoBurnAppSig = keyof AlgoBurnApp['methods']
+export type AsaBurnAppSig = keyof AsaBurnApp['methods']
 /**
  * Defines an object containing all relevant parameters for a single call to the contract. Where TSignature is undefined, a bare call is made
  */
-export type TypedCallParams<TSignature extends AlgoBurnAppSig | undefined> = {
+export type TypedCallParams<TSignature extends AsaBurnAppSig | undefined> = {
   method: TSignature
   methodArgs: TSignature extends undefined ? undefined : Array<ABIAppCallArg | undefined>
 } & AppClientCallCoreParams & CoreAppCallArgs
@@ -168,46 +177,46 @@ export type TypedCallParams<TSignature extends AlgoBurnAppSig | undefined> = {
  */
 export type BareCallArgs = Omit<RawAppCallArgs, keyof CoreAppCallArgs>
 /**
- * Maps a method signature from the AlgoBurnApp smart contract to the method's arguments in either tuple of struct form
+ * Maps a method signature from the AsaBurnApp smart contract to the method's arguments in either tuple of struct form
  */
-export type MethodArgs<TSignature extends AlgoBurnAppSig> = AlgoBurnApp['methods'][TSignature]['argsObj' | 'argsTuple']
+export type MethodArgs<TSignature extends AsaBurnAppSig> = AsaBurnApp['methods'][TSignature]['argsObj' | 'argsTuple']
 /**
- * Maps a method signature from the AlgoBurnApp smart contract to the method's return type
+ * Maps a method signature from the AsaBurnApp smart contract to the method's return type
  */
-export type MethodReturn<TSignature extends AlgoBurnAppSig> = AlgoBurnApp['methods'][TSignature]['returns']
+export type MethodReturn<TSignature extends AsaBurnAppSig> = AsaBurnApp['methods'][TSignature]['returns']
 
 /**
  * A factory for available 'create' calls
  */
-export type AlgoBurnAppCreateCalls = (typeof AlgoBurnAppCallFactory)['create']
+export type AsaBurnAppCreateCalls = (typeof AsaBurnAppCallFactory)['create']
 /**
  * Defines supported create methods for this smart contract
  */
-export type AlgoBurnAppCreateCallParams =
+export type AsaBurnAppCreateCallParams =
   | (TypedCallParams<undefined> & (OnCompleteNoOp))
 /**
  * Defines arguments required for the deploy method.
  */
-export type AlgoBurnAppDeployArgs = {
+export type AsaBurnAppDeployArgs = {
   deployTimeParams?: TealTemplateParams
   /**
    * A delegate which takes a create call factory and returns the create call params for this smart contract
    */
-  createCall?: (callFactory: AlgoBurnAppCreateCalls) => AlgoBurnAppCreateCallParams
+  createCall?: (callFactory: AsaBurnAppCreateCalls) => AsaBurnAppCreateCallParams
 }
 
 
 /**
  * Exposes methods for constructing all available smart contract calls
  */
-export abstract class AlgoBurnAppCallFactory {
+export abstract class AsaBurnAppCallFactory {
   /**
    * Gets available create call factories
    */
   static get create() {
     return {
       /**
-       * Constructs a create call for the AlgoBurnApp smart contract using a bare call
+       * Constructs a create call for the ASABurnApp smart contract using a bare call
        *
        * @param params Any parameters for the call
        * @returns A TypedCallParams object for the call
@@ -223,7 +232,7 @@ export abstract class AlgoBurnAppCallFactory {
   }
 
   /**
-   * Constructs a no op call for the optIntoASA(asset)void ABI method
+   * Constructs a no op call for the optIntoASA(pay,asset)void ABI method
    *
    * Opt the contract into an ASA
    *
@@ -231,19 +240,19 @@ export abstract class AlgoBurnAppCallFactory {
    * @param params Any additional parameters for the call
    * @returns A TypedCallParams object for the call
    */
-  static optIntoAsa(args: MethodArgs<'optIntoASA(asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+  static optIntoAsa(args: MethodArgs<'optIntoASA(pay,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
     return {
-      method: 'optIntoASA(asset)void' as const,
-      methodArgs: Array.isArray(args) ? args : [args.asa],
+      method: 'optIntoASA(pay,asset)void' as const,
+      methodArgs: Array.isArray(args) ? args : [args.mbrPayment, args.asa],
       ...params,
     }
   }
 }
 
 /**
- * A client to make calls to the AlgoBurnApp smart contract
+ * A client to make calls to the ASABurnApp smart contract
  */
-export class AlgoBurnAppClient {
+export class AsaBurnAppClient {
   /**
    * The underlying `ApplicationClient` for when you want to have more flexibility
    */
@@ -252,7 +261,7 @@ export class AlgoBurnAppClient {
   private readonly sender: SendTransactionFrom | undefined
 
   /**
-   * Creates a new instance of `AlgoBurnAppClient`
+   * Creates a new instance of `AsaBurnAppClient`
    *
    * @param appDetails appDetails The details to identify the app to deploy
    * @param algod An algod client instance
@@ -289,18 +298,18 @@ export class AlgoBurnAppClient {
    * @param returnValueFormatter An optional delegate which when provided will be used to map non-undefined return values to the target type
    * @returns The result of the smart contract call
    */
-  public async call<TSignature extends keyof AlgoBurnApp['methods']>(typedCallParams: TypedCallParams<TSignature>, returnValueFormatter?: (value: any) => MethodReturn<TSignature>) {
+  public async call<TSignature extends keyof AsaBurnApp['methods']>(typedCallParams: TypedCallParams<TSignature>, returnValueFormatter?: (value: any) => MethodReturn<TSignature>) {
     return this.mapReturnValue<MethodReturn<TSignature>>(await this.appClient.call(typedCallParams), returnValueFormatter)
   }
 
   /**
-   * Idempotently deploys the AlgoBurnApp smart contract.
+   * Idempotently deploys the ASABurnApp smart contract.
    *
    * @param params The arguments for the contract calls and any additional parameters for the call
    * @returns The deployment result
    */
-  public deploy(params: AlgoBurnAppDeployArgs & AppClientDeployCoreParams = {}): ReturnType<ApplicationClient['deploy']> {
-    const createArgs = params.createCall?.(AlgoBurnAppCallFactory.create)
+  public deploy(params: AsaBurnAppDeployArgs & AppClientDeployCoreParams = {}): ReturnType<ApplicationClient['deploy']> {
+    const createArgs = params.createCall?.(AsaBurnAppCallFactory.create)
     return this.appClient.deploy({
       ...params,
       createArgs,
@@ -315,7 +324,7 @@ export class AlgoBurnAppClient {
     const $this = this
     return {
       /**
-       * Creates a new instance of the AlgoBurnApp smart contract using a bare call.
+       * Creates a new instance of the ASABurnApp smart contract using a bare call.
        *
        * @param args The arguments for the bare call
        * @returns The create result
@@ -327,7 +336,7 @@ export class AlgoBurnAppClient {
   }
 
   /**
-   * Makes a clear_state call to an existing instance of the AlgoBurnApp smart contract.
+   * Makes a clear_state call to an existing instance of the ASABurnApp smart contract.
    *
    * @param args The arguments for the bare call
    * @returns The clear_state result
@@ -337,7 +346,7 @@ export class AlgoBurnAppClient {
   }
 
   /**
-   * Calls the optIntoASA(asset)void ABI method.
+   * Calls the optIntoASA(pay,asset)void ABI method.
    *
    * Opt the contract into an ASA
    *
@@ -345,17 +354,17 @@ export class AlgoBurnAppClient {
    * @param params Any additional parameters for the call
    * @returns The result of the call
    */
-  public optIntoAsa(args: MethodArgs<'optIntoASA(asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
-    return this.call(AlgoBurnAppCallFactory.optIntoAsa(args, params))
+  public optIntoAsa(args: MethodArgs<'optIntoASA(pay,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+    return this.call(AsaBurnAppCallFactory.optIntoAsa(args, params))
   }
 
-  public compose(): AlgoBurnAppComposer {
+  public compose(): AsaBurnAppComposer {
     const client = this
     const atc = new AtomicTransactionComposer()
     let promiseChain:Promise<unknown> = Promise.resolve()
     const resultMappers: Array<undefined | ((x: any) => any)> = []
     return {
-      optIntoAsa(args: MethodArgs<'optIntoASA(asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
+      optIntoAsa(args: MethodArgs<'optIntoASA(pay,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
         promiseChain = promiseChain.then(() => client.optIntoAsa(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
         resultMappers.push(undefined)
         return this
@@ -381,12 +390,12 @@ export class AlgoBurnAppClient {
           returns: result.returns?.map((val, i) => resultMappers[i] !== undefined ? resultMappers[i]!(val.returnValue) : val.returnValue)
         }
       }
-    } as unknown as AlgoBurnAppComposer
+    } as unknown as AsaBurnAppComposer
   }
 }
-export type AlgoBurnAppComposer<TReturns extends [...any[]] = []> = {
+export type AsaBurnAppComposer<TReturns extends [...any[]] = []> = {
   /**
-   * Calls the optIntoASA(asset)void ABI method.
+   * Calls the optIntoASA(pay,asset)void ABI method.
    *
    * Opt the contract into an ASA
    *
@@ -394,15 +403,15 @@ export type AlgoBurnAppComposer<TReturns extends [...any[]] = []> = {
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  optIntoAsa(args: MethodArgs<'optIntoASA(asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): AlgoBurnAppComposer<[...TReturns, MethodReturn<'optIntoASA(asset)void'>]>
+  optIntoAsa(args: MethodArgs<'optIntoASA(pay,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): AsaBurnAppComposer<[...TReturns, MethodReturn<'optIntoASA(pay,asset)void'>]>
 
   /**
-   * Makes a clear_state call to an existing instance of the AlgoBurnApp smart contract.
+   * Makes a clear_state call to an existing instance of the ASABurnApp smart contract.
    *
    * @param args The arguments for the bare call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  clearState(args?: BareCallArgs & AppClientCallCoreParams & CoreAppCallArgs): AlgoBurnAppComposer<[...TReturns, undefined]>
+  clearState(args?: BareCallArgs & AppClientCallCoreParams & CoreAppCallArgs): AsaBurnAppComposer<[...TReturns, undefined]>
 
   /**
    * Adds a transaction to the composer
@@ -410,7 +419,7 @@ export type AlgoBurnAppComposer<TReturns extends [...any[]] = []> = {
    * @param txn One of: A TransactionWithSigner object (returned as is), a TransactionToSign object (signer is obtained from the signer property), a Transaction object (signer is extracted from the defaultSender parameter), an async SendTransactionResult returned by one of algokit utils helpers (signer is obtained from the defaultSender parameter)
    * @param defaultSender The default sender to be used to obtain a signer where the object provided to the transaction parameter does not include a signer.
    */
-  addTransaction(txn: TransactionWithSigner | TransactionToSign | Transaction | Promise<SendTransactionResult>, defaultSender?: SendTransactionFrom): AlgoBurnAppComposer<TReturns>
+  addTransaction(txn: TransactionWithSigner | TransactionToSign | Transaction | Promise<SendTransactionResult>, defaultSender?: SendTransactionFrom): AsaBurnAppComposer<TReturns>
   /**
    * Returns the underlying AtomicTransactionComposer instance
    */
@@ -418,9 +427,9 @@ export type AlgoBurnAppComposer<TReturns extends [...any[]] = []> = {
   /**
    * Executes the transaction group and returns an array of results
    */
-  execute(): Promise<AlgoBurnAppComposerResults<TReturns>>
+  execute(): Promise<AsaBurnAppComposerResults<TReturns>>
 }
-export type AlgoBurnAppComposerResults<TReturns extends [...any[]]> = {
+export type AsaBurnAppComposerResults<TReturns extends [...any[]]> = {
   returns: TReturns
   groupId: string
   txIds: string[]

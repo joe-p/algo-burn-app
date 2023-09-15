@@ -1,10 +1,10 @@
 {
-  "name": "algo-burn-app",
+  "name": "asa-burn-app",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "generate-client": "algokitgen generate -a contracts/artifacts/AlgoBurnApp.json -o contracts/clients/AlgoBurnAppClient.ts",
-    "compile-contract": "tealscript contracts/algo-burn-app.algo.ts contracts/artifacts",
+    "generate-client": "algokitgen generate -a contracts/artifacts/ASABurnApp.json -o contracts/clients/ASABurnAppClient.ts",
+    "compile-contract": "tealscript contracts/asa-burn-app.algo.ts contracts/artifacts",
     "build": "npm run compile-contract && npm run generate-client",
     "test": "npm run build && jest",
     "lint": "eslint . --ext .ts",

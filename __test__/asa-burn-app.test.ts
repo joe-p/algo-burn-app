@@ -4,20 +4,20 @@ import {
 import * as algokit from '@algorandfoundation/algokit-utils';
 import algosdk from 'algosdk';
 import { algorandFixture } from '@algorandfoundation/algokit-utils/testing';
-import { AlgoBurnAppClient } from '../contracts/clients/AlgoBurnAppClient';
+import { ASABurnAppClient } from '../contracts/clients/ASABurnAppClient';
 
 const fixture = algorandFixture();
 
-let appClient: AlgoBurnAppClient;
+let appClient: ASABurnAppClient;
 
-describe('AlgoBurnApp', () => {
+describe('ASABurnApp', () => {
   beforeEach(fixture.beforeEach);
 
   beforeAll(async () => {
     await fixture.beforeEach();
     const { algod, testAccount } = fixture.context;
 
-    appClient = new AlgoBurnAppClient(
+    appClient = new ASABurnAppClient(
       {
         sender: testAccount,
         resolveBy: 'id',
